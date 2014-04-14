@@ -1,0 +1,175 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+			    xmlns:h="http://xmlns.jcp.org/jsf/html"
+			    xmlns:f="http://xmlns.jcp.org/jsf/core"
+			    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+			    xmlns:r="http://richfaces.org"
+			    xmlns:s="http://shop.de">
+			    
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<r:tabPanel id="tabPanel" switchType="client">
+		<r:tab id="stammdatenTab">
+			<f:facet name="header">
+				<img jsf:id="stammdatenGif" jsf:name="stammdaten.gif" jsf:library="images"/>
+				#{' '}
+				#{msgKv['viewKundePopup.kunde.stammdaten']}
+			</f:facet>
+			
+			<r:panel id="stammdatenPanel">
+				<h:panelGrid id="stammdatenGrid" columns="2">
+					<label id="idLabel">#{msgKv['viewKundePopup.kundenr']}</label>
+					<h:outputText id="id" value="#{kunde.id}"/>
+			
+					<label id="nachnameLabel">#{msgKv['viewKundePopup.nachname']}</label>
+					<h:outputText id="nachname" value="#{kunde.nachname}"/>
+		
+					<label id="vornameLabel">#{msgKv['viewKundePopup.vorname']}</label>
+					<h:outputText id="vorname" value="#{kunde.vorname}"/>
+					
+					<label id="seitLabel">#{msgKv['viewKundePopup.seit']}</label>
+					<h:outputText id="seit" value="#{kunde.seit}">
+						<f:convertDateTime type="date" dateStyle="long"/>
+					</h:outputText>
+					
+					<label id="umsatzLabel">#{msgKv['viewKundePopup.umsatz']}</label>
+					<h:outputText id="umsatz" value="#{kunde.umsatz}">
+						<f:convertNumber type="currency" currencyCode="EUR"/>
+					</h:outputText>
+		
+					<label id="emailLabel">#{msgKv['viewKundePopup.email']}</label>
+					<h:outputText id="email" value="#{kunde.email}"/>
+	
+					<label jsf:id="firmenkundeLabel" jsf:rendered="#{kunde.class.simpleName eq 'Firmenkunde'}">#{msgKv['viewKundePopup.kundenart']}</label>
+					<h:outputText id="firmenkunde" value="#{msgKv['viewKundePopup.firmenkunde']}" rendered="#{kunde.class.simpleName eq 'Firmenkunde'}"/>
+		
+					<label jsf:id="privatkundeLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde'}">#{msgKv['viewKundePopup.kundenart']}</label>
+					<h:outputText id="privatkunde" value="#{msgKv['viewKundePopup.privatkunde']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
+					
+					<label id="rabattLabel" value="#{msgKv['viewKundePopup.rabatt']}"/>
+					<h:outputText id="rabatt" value="#{kunde.rabatt}">
+						<f:convertNumber type="percent" maxFractionDigits="2"/>
+					</h:outputText>
+					
+					<label id="familienstandLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'LEDIG'}">#{msgKv['viewKundePopup.familienstand']}</label>
+					<h:outputText id="familienstand" value="#{msgKv['viewKundePopup.familienstand.ledig']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'LEDIG'}"/>
+		
+					<label jsf:id="verheiratetLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERHEIRATET'}">#{msgKv['viewKundePopup.familienstand']}</label>
+					<h:outputText id="verheiratet" value="#{msgKv['viewKundePopup.familienstand.verheiratet']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERHEIRATET'}"/>
+		
+					<label jsf:id="geschiedenLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'GESCHIEDEN'}">#{msgKv['viewKundePopup.familienstand']}</label>
+					<h:outputText id="geschieden" value="#{msgKv['viewKundePopup.familienstand.geschieden']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'GESCHIEDEN'}"/>
+		
+					<label jsf:id="verwitwetLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERWITWET'}">#{msgKv['viewKundePopup.familienstand']}</label>
+					<h:outputText id="verwitwet" value="#{msgKv['viewKundePopup.familienstand.verwitwet']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERWITWET'}"/>
+		
+					<label jsf:id="weiblichLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'WEIBLICH'}">#{msgKv['viewKundePopup.geschlecht']}</label>
+					<h:outputText id="weiblich" value="#{msgKv['viewKundePopup.geschlecht.weiblich']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
+		
+					<label jsf:id="maennlichLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'MAENNLICH'}">#{msgKv['viewKundePopup.geschlecht']}</label>
+					<h:outputText id="maennlich" value="#{msgKv['viewKundePopup.geschlecht.maennlich']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
+	
+					<label id="newsletterLabel">#{msgKv['viewKundePopup.newsletter']}</label>
+					<input jsf:id="newsletter" type="checkbox" jsf:value="#{kunde.newsletter}" disabled="disabled" readonly="readonly"/>
+	
+					<label jsf:id="hobbiesLabel" jsf:rendered="#{kunde.class.simpleName eq 'Privatkunde'}">#{msgKv['viewKundePopup.hobbies']}</label>
+					<h:selectManyCheckbox value="#{kunde.hobbies}"
+					                      layout="pageDirection"
+					                      disabled="true"
+					                      readonly="true"
+					                      rendered="#{kunde.class.simpleName eq 'Privatkunde'}">
+						<f:selectItem itemValue="SPORT"
+									  itemLabel="#{msgKv['viewKundePopup.hobbies.sport']}"/>
+						<f:selectItem itemValue="LESEN" 
+									  itemLabel="#{msgKv['viewKundePopup.hobbies.lesen']}"/>
+						<f:selectItem itemValue="REISEN" 
+									  itemLabel="#{msgKv['viewKundePopup.hobbies.reisen']}"/>
+					</h:selectManyCheckbox>
+				</h:panelGrid>
+			</r:panel>
+		</r:tab>
+		
+		<r:tab id="bestellungenTab" rendered="#{not empty kunde.bestellungen}">
+			<f:facet name="header">
+				<img jsf:id="bestellungenGif" jsf:name="bestellungen.gif" jsf:library="images"/>
+				#{' '}
+				#{msgKv['viewKundePopup.kunde.bestellungen']}
+			</f:facet>
+			
+			<r:dataTable id="bestellungenTabelle" value="#{kunde.bestellungen}" var="bestellung">
+				<f:facet name="header">
+					<r:columnGroup id="positionenSpalten">
+						<r:column id="artikelIdSpalte">
+							#{msgKv['viewKundePopup.artikel.id']}
+						</r:column>
+						<r:column id="bezeichnungSpalte">
+							#{msgKv['viewKundePopup.artikel.bezeichnung']}
+						</r:column>
+						<r:column id="anzahlSpalte">
+							#{msgKv['viewKundePopup.artikel.anzahl']}
+						</r:column>
+						<r:column id="preisSpalte">
+							#{msgKv['viewKundePopup.artikel.preis']}
+						</r:column>
+					</r:columnGroup>
+				</f:facet>
+				
+				<r:column id="togglerSpalte" colspan="4">
+					<r:collapsibleSubTableToggler id="subTableToggler" for="positionenSubtable"
+					                              collapsedLabel="#{msgKv['viewKundePopup.bestellung']} #{bestellung.id}: #{msgKv['viewKundePopup.bestellung.datum']} #{bestellung.getErzeugt('yyyy-MM-dd')}"
+					                              expandedLabel="#{msgKv['viewKundePopup.bestellung']} #{bestellung.id}: #{msgKv['viewKundePopup.bestellung.datum']} #{bestellung.getErzeugt('yyyy-MM-dd')} / #{msgKv['viewKundePopup.bestellung.gesamtbetrag']} #{bestellung.gesamtbetrag}"/>
+				</r:column>
+				
+				<r:collapsibleSubTable id="positionenSubtable"
+				                       value="#{s:asList(bestellung.bestellpositionen)}"
+				                       var="pos"
+				                       rowClasses="odd-row, even-row"
+					                   expandMode="client"
+				                       expanded="#{false}"> <!-- https://issues.jboss.org/browse/RF-10715 -->
+					<r:column id="artikelIdSpalteSub">
+						#{pos.artikel.id}
+					</r:column>
+		
+					<r:column id="bezeichnungSpalteSub">
+						#{pos.artikel.bezeichnung}
+					</r:column>
+		
+					<r:column id="anzahlSpalteSub">
+						#{pos.anzahl}
+					</r:column>
+										
+					<r:column id="preisSpalteSub">
+						<h:outputText id="preis" value="#{pos.artikel.preis}">
+							<f:convertNumber type="currency" currencyCode="EUR" maxFractionDigits="2" minFractionDigits="2"/>
+						</h:outputText>
+					</r:column>
+				</r:collapsibleSubTable>
+			</r:dataTable>
+		</r:tab>
+		
+		<r:tab id="bemerkungenTab" rendered="#{not empty kunde.bemerkungen}">
+			<f:facet name="header">
+				<img jsf:id="bemerkungenGif" jsf:name="text.gif" jsf:library="images"/>
+				#{' '}
+				#{msgKv['viewKundePopup.kunde.bemerkungen']}
+			</f:facet>
+					
+			<h:outputText id="bemerkungen" value="#{kunde.bemerkungen}" escape="false"/>
+		</r:tab>
+	</r:tabPanel>
+</ui:composition>

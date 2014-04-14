@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	  xmlns:r="http://richfaces.org">
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<body>
+		<ui:composition template="/WEB-INF/resources/templates/desktop/shop.xml">
+			<ui:param name="pageTitle" value="#{msg['login.title']}"/>
+		
+			<ui:define name="main">
+				<r:panel id="loginPanel" header="#{msg['login.heading']}" style="width:300px">
+					<form id="loginForm" action="j_security_check" method="post">
+						<h:panelGrid id="loginGrid" columns="3">
+							<label jsf:id="usernameLabel" for="j_username">
+								#{msg['login.kundeId']}
+							</label>
+							<input jsf:id="j_username" type="text" autofocus="autofocus"/>
+							<f:verbatim/>
+									
+							<label jsf:id="passwordLabel" for="j_password">
+								#{msg['login.password']}
+							</label>
+							<input jsf:id="j_password" type="password"/>
+							<input jsf:id="loginButton" type="submit" value="#{msg['login.submit']}"/>
+						</h:panelGrid>
+					</form>
+					
+					<c:if test="#{param.error eq 'true'}">
+						<p id="abstandZuForm" class="rf-msg-err">
+							#{msg['login.error']}
+						</p>
+					</c:if>
+				</r:panel>
+				
+<!--
+		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				    xmlns:ui="http://java.sun.com/jsf/facelets"
+				    template="/WEB-INF/templates/desktop/main.xml">
+			<ui:param name="pageTitle" value="#{msg['login.title']}"/>
+		
+			<ui:define name="article">
+				<form id="loginForm" action="j_security_check" method="post">
+					Username
+					<input type="text" id="j_username" name="j_username"/>
+					Password
+					<input type="password" id="j_password" name="j_password"/>
+					<input type="submit" value="OK"/>
+				</form>
+			</ui:define>
+		</ui:composition>
+-->
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>

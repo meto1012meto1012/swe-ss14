@@ -1,0 +1,151 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:r="http://richfaces.org"
+	  xmlns:s="http://shop.de">
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<body>
+		<ui:composition template="/WEB-INF/resources/templates/desktop/shop.xml">
+			<ui:param name="pageTitle" value="#{msgKv['updateFirmenkunde.title']}"/>
+		
+			<ui:define name="main">
+				<h1>
+					<h:outputFormat id="headingFirmenkunde" value="#{msgKv['updateFirmenkunde.heading']}" rendered="#{not empty kunde}">
+						<f:param id="idWert" value="#{kundeModel.kunde.id}"/>
+					</h:outputFormat>
+				</h1>
+				
+				<h:outputText id="fehlerKeinKunde"
+				              value="#{msgKv['updateFirmenkunde.keinKunde']}"
+				              class="rf-msg-err"
+				              rendered="#{empty kundeModel.kunde}"/>
+				              
+				<r:push id="updateEvent" address="updateKunde"
+			            ondataavailable="if (event.rf.data == '#{kundeModel.kunde.id}') { $('#updateMessage').html('&lt;span class=rf-msg-err&gt;#{msgKv['updateFirmenkunde.concurrentUpdate']}&lt;/span&gt;') }"/>
+				<span id="updateMessage"></span>
+				
+				<r:messages id="fehlermeldungGobal" globalOnly="true"/>
+				<r:notifyMessages id="notifyMessages" stayTime="2000" nonblocking="true"/>
+				
+				<form jsf:id="updateKundeForm" jsf:prependId="false" jsf:rendered="#{not empty kundeModel.kunde}">
+					<i>Caveat: Validierung funktioniert hier nicht.</i>
+					
+					<h:panelGrid id="updateKundeTabelle" columns="3">
+						<label id="nachnameLabel" for="nachname">#{msgKv['updateFirmenkunde.nachname']}</label>
+						<input jsf:id="nachname"
+						       type="text"
+							   autofocus="autofocus"
+						       jsf:value="#{kundeModel.kunde.nachname}"
+						       jsf:valueChangeListener="#{kundeModel.geaendert}">
+							<r:validator oninvalid="$(#{r:element('nachname')}).addClass('invalid')"
+	                                     onvalid="$(#{r:element('nachname')}).removeClass('invalid')"/>
+						</input>
+						<r:messages id="fehlermeldungenNachname" for="nachname"/>
+			
+						<label id="vornameLabel" for="vorname">#{msgKv['updateFirmenkunde.vorname']}</label>
+						<input jsf:id="vorname" type="text" jsf:value="#{kundeModel.kunde.vorname}" jsf:valueChangeListener="#{kundeModel.geaendert}"/>
+						<f:verbatim/>
+						
+						<label id="kategorieLabel" value="#{msgKv['updateFirmenkunde.kategorie']}"/>
+						<r:inputNumberSpinner id="kategorie"
+						                      value="#{kundeModel.kunde.kategorie}"
+						                      minValue="0" maxValue="5"
+						                      inputSize="1"
+						                      valueChangeListener="#{kundeModel.geaendert}"/>
+						<f:verbatim/>
+						
+						<label id="seitLabel" for="seitInputDate">#{msgKv['updateFirmenkunde.seit']}</label>
+						<r:calendar id="seit"
+						            datePattern="#{msgKv['updateFirmenkunde.calendar.pattern']}"
+						            value="#{kundeModel.kunde.seit}"
+						            locale="#{locale}"
+						            timeZone="#{s:timeZone('Europe/Berlin')}">
+							<!--
+							<r:validator/>
+							-->
+						</r:calendar>
+						<r:messages id="fehlermeldungSeit" for="seit"/>
+						
+						<label id="umsatzLabel" for="umsatz">#{msgKv['updateFirmenkunde.umsatz']}</label>
+						<input jsf:id="umsatz"
+						       type="text"
+						       jsf:value="#{kundeModel.kunde.umsatz}"
+						       jsf:converterMessage="#{msgKv['updateFirmenkunde.umsatz.convert']}"
+						       jsf:valueChangeListener="#{kundeModel.geaendert}">
+						    <!--
+							<f:convertNumber type="currency"
+							                 currencyCode="EUR"
+							                 maxFractionDigits="2"/>
+							-->
+							<f:ajax event="blur" render="updateKundeForm:fehlermeldungenUmsatz"/>
+						</input>
+						<r:messages id="fehlermeldungenUmsatz" for="umsatz"/>
+		
+						<label id="rabattLabel" for="rabatt">#{msgKv['updateFirmenkunde.rabatt']}</label>
+						<input jsf:id="rabatt"
+						       type="text"
+						       jsf:value="#{kundeModel.kunde.rabatt}"
+						       jsf:converterMessage="#{msgKv['updateFirmenkunde.rabatt.convert']}"
+						       jsf:valueChangeListener="#{kundeModel.geaendert}">
+							<f:convertNumber type="percent"
+		                                     maxFractionDigits="2"
+		                                     maxIntegerDigits="2"/>
+							<f:ajax event="blur" render="updateKundeForm:fehlermeldungenRabatt"/>
+						</input>
+						<r:messages id="fehlermeldungenRabatt" for="rabatt"/>
+		
+						<label id="emailLabel" for="email">#{msgKv['updateFirmenkunde.email']}</label>
+						<input jsf:id="email" type="email" jsf:value="#{kundeModel.kunde.email}" jsf:valueChangeListener="#{kundeModel.geaendert}">
+							<r:validator oninvalid="$(#{r:element('email')}).addClass('invalid')"
+	                                     onvalid="$(#{r:element('email')}).removeClass('invalid')"/>
+						</input>
+						<r:messages id="fehlermeldungenEmail" for="email"/>
+						
+						<label id="newsletterLabel" for="newsletter">#{msgKv['updateFirmenkunde.newsletter']}</label>
+						<input jsf:id="newsletter" type="checkbox" jsf:value="#{kundeModel.kunde.newsletter}" jsf:valueChangeListener="#{kundeModel.geaendert}"/>
+						<f:verbatim/>
+					</h:panelGrid>
+					
+					<h:panelGrid id="bemerkungenGrid">
+						<label id="bemerkungenLabel">#{msgKv['updateFirmenkunde.bemerkungen']}</label>
+						<r:messages id="fehlermeldungBemerkungen" for="bemerkungen"/>
+						<r:editor id="bemerkungen"
+						          value="#{kundeModel.kunde.bemerkungen}"
+						          valueChangeListener="#{kundeModel.geaendert}"
+							      toolbar="full"
+							      width="870"
+							      height="80"/>
+					</h:panelGrid>
+		
+					<p id="buttons">
+						<input jsf:id="button" type="submit" jsf:action="#{kundeModel.update}" value="#{msgKv['updateFirmenkunde.submit']}"/>
+						#{' '}
+						<input jsf:id="rest" type="reset" value="#{msgKv['updateFirmenkunde.reset']}"/>
+					</p>
+					
+					<p id="hinweisPflichtfelder">
+						#{msgKv['updateFirmenkunde.required']}
+					</p>
+				</form>
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>

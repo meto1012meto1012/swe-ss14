@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+	  xmlns:r="http://richfaces.org">
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<body>
+		<ui:composition template="/WEB-INF/resources/templates/desktop/shop.xml">
+			<ui:define name="metadata">
+				<f:event type="preRenderView" listener="#{artikelModel.createEmptyArtikel}"/>
+			</ui:define>
+
+			<ui:param name="pageTitle" value="#{msgAv['createArtikel.title']}"/>
+		
+			<ui:define name="main">
+				<h1>#{msgAv['createArtikel.heading']}</h1>
+				
+				<form jsf:id="createForm" jsf:prependId="false">
+					<h:panelGrid id="createGrid" columns="3">
+						<label id="bezeichnungLabel" for="bezeichnung">
+							#{msgAv['createArtikel.bezeichnung']}
+						</label>
+						<input jsf:id="bezeichnung" type="text" autofocus="autofocus" jsf:value="#{artikelModel.neuerArtikel.bezeichnung}">
+							<r:validator oninvalid="$(#{r:element('bezeichnung')}).addClass('invalid')"
+	                                     onvalid="$(#{r:element('bezeichnung')}).removeClass('invalid')"/>
+						</input>
+						<r:messages id="fehlermeldungenBezeichnung" for="bezeichnung"/>
+
+						<label id="preisLabel" for="preis">
+							#{msgAv['createArtikel.preis']}
+						</label>
+						<input jsf:id="preis" type="text" jsf:value="#{artikelModel.neuerArtikel.preis}" jsf:converterMessage="#{msgAv['createArtikel.preis.convert']}" placeholder="#{msgAv['createArtikel.preis.placeholder']}">>
+							<f:convertNumber type="currency" currencyCode="EUR" maxFractionDigits="2" minFractionDigits="2"/>
+							<f:ajax event="blur" render="fehlermeldungenPreis"/>
+						</input>
+						<r:messages id="fehlermeldungenPreis" for="preis"/>
+					</h:panelGrid>
+
+					<p id="abstand"/>
+					<r:commandButton id="createButton"
+									 action="#{artikelModel.createArtikel}"
+									 value="#{msgAv['createArtikel.submit']}"/>
+
+					<ez:waiting id="inBearbeitung" msg="#{msgAv['createArtikel.inBearbeitung']}"/>
+				</form>
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>

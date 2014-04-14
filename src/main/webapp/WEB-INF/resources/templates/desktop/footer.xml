@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:r="http://richfaces.org">
+
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<r:outputPanel id="neuerKundePanel" rendered="#{authModel.loggedIn}">
+		<r:push id="neuerKundeEvent" address="marketing"
+	            ondataavailable="$('#eventMessage').html('&lt;a href=/shop/kundenverwaltung/viewKundeGET.jsf?kundeId=' + event.rf.data + ' class=rf-msg-inf&gt;Neuer Kunde Nr. ' + event.rf.data + '&lt;/a&gt;')"/>
+		<span id="eventMessage"></span>
+	</r:outputPanel>
+
+	<span id="copyright">
+		<b>&#169; J&#252;rgen Zimmermann</b>
+	</span>
+</ui:composition>

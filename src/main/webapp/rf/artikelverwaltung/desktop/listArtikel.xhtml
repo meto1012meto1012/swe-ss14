@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+	  xmlns:r="http://richfaces.org">
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<body>
+		<ui:composition template="/WEB-INF/resources/templates/desktop/shop.xml">
+			<ui:param name="pageTitle" value="#{msgAv['listArtikel.title']}"/>
+		
+			<ui:define name="main">
+				<section id="sucheSection">
+					<form jsf:id="sucheForm" jsf:prependId="false">
+						<r:panel id="suchePanel" header="#{msgAv['listArtikel.sucheNeu']}">
+							<h:panelGrid id="sucheGrid" columns="4">
+								<label id="bezeichnungLabel" for="bezeichnung">
+									#{msgAv['listArtikel.bezeichnung']}
+								</label>
+
+								<!-- Kein Placeholder wegen <r:focus> -->
+								<input jsf:id="bezeichnung" type="text" autofocus="autofocus" jsf:value="#{artikelModel.bezeichnung}"/>
+
+								<r:commandButton id="findButton"
+												 action="#{artikelModel.findArtikelByBezeichnung}"
+												 value="#{msgAv['listArtikel.submit']}"
+												 render="artikelPanel sucheForm:fehlermeldungBezeichnung"/>
+
+								<ez:waiting id="inBearbeitung" msg="#{msgAv['listArtikel.inBearbeitung']}"/>
+							</h:panelGrid>
+						</r:panel>
+					</form>
+				</section>
+				
+				<p id="abstand1"/>
+				
+				<r:outputPanel id="artikelPanel">
+					<section id="artikelSection">
+						<form jsf:id="artikelForm" jsf:prependId="false">
+							<r:dataTable id="artikelTabelle"
+										 value="#{artikelModel.artikel}"
+										 var="artikel"
+										 rows="5"
+										 noDataLabel="#{msgAv['listArtikel.keineDaten']}"
+										 rowClasses="odd-row, even-row"
+										 styleClass="tabelleMitZebrastil"
+										 rendered="#{not empty artikelModel.artikel or param.init ne 'true'}">
+								<r:column id="idSpalte">
+									<f:facet name="header">#{msgAv['listArtikel.id']}</f:facet>
+									#{artikel.id}
+								</r:column>
+
+								<r:column id="bezeichnungSpalte">
+									<f:facet name="header">#{msgAv['listArtikel.bezeichnung']}</f:facet>
+									#{artikel.bezeichnung}
+								</r:column>
+
+								<r:column id="preisSpalte">
+									<f:facet name="header">#{msgAv['listArtikel.preis']}</f:facet>
+									<h:outputText id="preis" value="#{artikel.preis}">
+										<f:convertNumber type="currency" currencyCode="EUR" maxFractionDigits="2" minFractionDigits="2"/>
+									</h:outputText>
+								</r:column>
+
+								<r:column id="buttonSpalte" rendered="#{not empty artikelModel.artikel}">
+									<a jsf:id="warenkorbButton" jsf:action="#{warenkorb.add(artikel)}">
+										<img jsf:id="warenkorbIcon" jsf:name="warenkorb.gif" jsf:library="images" alt="#{msgAv['listArtikel.alt.warenkorb']}"/>
+									</a>
+								</r:column>
+							</r:dataTable>
+
+							<ez:zebrastilMitDatascroller id="zebrastilMitDatascroller" for="artikelTabelle" maxPages="10" rendered="#{not empty artikelModel.artikel}"/>
+						</form>
+					</section>
+				</r:outputPanel>
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>

@@ -1,0 +1,87 @@
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<f:view locale="#{locale}">
+		<f:metadata>
+			<ui:insert name="metadata"/>
+		</f:metadata>
+		
+		<head jsf:id="head">
+			<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
+			<meta http-equiv="language" content="#{locale}"/>
+			<meta http-equiv="content-language" content="#{locale}"/>
+			<meta name="language" content="#{locale}"/>
+			<meta http-equiv="Content-Style-Type" content="text/css"/>
+			<base href="#{request.contextPath}"/>
+			<title>#{empty pageTitle ? 'Webshop' : pageTitle}</title>
+
+			<!-- <link rel="stylesheet" type="text/css" href="#{resource['styles:shop-blueSky.css']}"/> -->
+			<h:outputStylesheet id="cssBlueSky" library="styles" name="shop-blueSky.css" rendered="#{skin.value eq 'blueSky'}"/>
+			<h:outputStylesheet id="cssDeepMarine" library="styles" name="shop-deepMarine.css" rendered="#{skin.value eq 'deepMarine'}"/>
+			<h:outputStylesheet id="cssEmeraldTown" library="styles" name="shop-emeraldTown.css" rendered="#{skin.value eq 'emeraldTown'}"/>
+			<h:outputStylesheet id="cssJapanCherry" library="styles" name="shop-japanCherry.css" rendered="#{skin.value eq 'japanCherry'}"/>
+			<h:outputStylesheet id="cssRuby" library="styles" name="shop-ruby.css" rendered="#{skin.value eq 'ruby'}"/>
+			<h:outputStylesheet id="cssWine" library="styles" name="shop-wine.css" rendered="#{skin.value eq 'wine'}"/>
+
+			<link type="image/x-icon" href="#{resource['images/1_0:favicon.ico']}"/>
+			<meta name="author" content="J&#252;rgen Zimmermann"/>
+			<meta name="copyright" content="J&#252;rgen Zimmermann"/>
+			<meta name="keywords" content="Software Engineering,Java EE,CDI,EJB,JAX-RS,JSON,JPA,Bean Validation,JavaMail,JSF,EL,RichFaces"/>
+		</head>
+		
+		<body jsf:id="body">
+			<header id="header">
+				<ui:insert name="header">
+					<ui:include src="header.xml"/>
+				</ui:insert>
+			</header>
+
+			<nav id="nav">
+				<ui:insert name="nav">
+					<ui:include src="nav.xml"/>
+				</ui:insert>
+			</nav>
+		
+			<main id="main">
+				<ui:insert name="main"/>
+			</main>
+		
+			<aside id="aside">
+				<ui:insert name="aside"/>
+			</aside>
+
+			<footer id="footer">
+				<ui:insert name="footer">
+					<ui:include src="footer.xml"/>
+				</ui:insert>
+				
+				<!-- <Strg><Shift>d fuer Debugging: Component Tree und Scoped (JSF) Variables -->
+				<ui:debug rendered="#{facesContext.application.projectStage eq 'Development'}"/>
+				
+				<!-- fuer client-seitige Interpretation von LESS-Dateien (statt serverseitig Voruebersetzung)
+				<script type="text/javascript" src="#{resource['js:less.js']}"/>
+				-->
+			</footer>
+		</body>
+	</f:view>
+</html>

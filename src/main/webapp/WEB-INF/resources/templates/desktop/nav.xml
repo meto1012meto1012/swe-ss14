@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:r="http://richfaces.org">
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+	<form jsf:id="navForm" jsf:prependId="false">
+		<r:panelMenu id="panelMenu"
+		             itemMode="client"
+		             topGroupExpandedLeftIcon="chevronDown"
+		             topGroupCollapsedLeftIcon="chevron"
+		             itemLeftIcon="grid">
+			<r:panelMenuGroup id="artikelverwaltung"
+			                  label="#{msg['nav.artikelverwaltung']}"
+			                  expanded="true">
+				<r:panelMenuItem id="artikelverwaltungCreateArtikelItem" rendered="#{request.isUserInRole('admin') or request.isUserInRole('mitarbeiter')}">
+					<h:link id="artikelverwaltungCreateArtikel" outcome="/rf/artikelverwaltung/createArtikel?cid=#{javax.enterprise.context.conversation.id}"
+					        value="#{msg['nav.artikelverwaltung.createArtikel']}"/>
+				</r:panelMenuItem>				
+				<r:panelMenuItem id="artikelverwaltungListArtikelItem">
+					<h:link id="artikelverwaltungListArtikel" outcome="/rf/artikelverwaltung/listArtikel?cid=#{javax.enterprise.context.conversation.id}"
+					        value="#{msg['nav.artikelverwaltung.listArtikel']}">
+						<f:param id="listArtikelInit" name="init" value="true"/>
+					</h:link>
+				</r:panelMenuItem>
+				<r:panelMenuItem id="artikelverwaltungSelectArtikelItem">
+					<a jsf:id="artikelverwaltungSelectArtikel" jsf:action="#{artikelModel.selectArtikel}">
+						#{msg['nav.artikelverwaltung.selectArtikel']}
+					</a>
+				</r:panelMenuItem>				
+			</r:panelMenuGroup>
+
+			<r:panelMenuGroup id="bestellverwaltung"
+			                  label="#{msg['nav.bestellverwaltung']}"
+			                  expanded="true"
+			                  rendered="#{not empty warenkorb.positionen}">
+				<r:panelMenuItem id="bestellverwaltungViewWarenkorbItem">
+					<a jsf:id="bestellverwaltungViewWarenkorb" jsf:outcome="/rf/bestellverwaltung/viewWarenkorb.jsf?cid=#{javax.enterprise.context.conversation.id}">
+						#{msg['nav.bestellverwaltung.viewWarenkorb']}
+					</a>
+				</r:panelMenuItem>
+			</r:panelMenuGroup>
+			
+			<r:panelMenuGroup id="kundenverwaltung"
+			                  label="#{msg['nav.kundenverwaltung']}"
+			                  expanded="true"
+			                  rendered="#{authModel.loggedIn}">
+				<r:panelMenuItem id="kundenverwaltungViewKundeItem" rendered="#{request.isUserInRole('admin') or request.isUserInRole('mitarbeiter')}">
+				    <a jsf:id="kundenverwaltungViewKunde" jsf:outcome="/rf/kundenverwaltung/viewKunde?cid=#{javax.enterprise.context.conversation.id}">
+						#{msg['nav.kundenverwaltung.viewKunde']}
+					</a>
+				</r:panelMenuItem>
+				
+				<r:panelMenuItem id="kundenverwaltungListKundenItem" rendered="#{request.isUserInRole('admin') or request.isUserInRole('mitarbeiter')}">
+					<h:link id="kundenverwaltungListKunden" outcome="/rf/kundenverwaltung/listKunden?cid=#{javax.enterprise.context.conversation.id}"
+					        value="#{msg['nav.kundenverwaltung.listKunden']}">
+						<f:param id="listKundenInit" name="init" value="true"/>
+					</h:link>
+				</r:panelMenuItem>
+				
+				<r:panelMenuItem id="authUpdateRolesItem" rendered="#{request.isUserInRole('admin')}">
+					<a jsf:id="authUpdateRoles" jsf:outcome="/rf/auth/updateRollen?cid=#{javax.enterprise.context.conversation.id}">
+						#{msg['nav.auth.updateRollen']}
+					</a>
+				</r:panelMenuItem>
+				
+				<r:panelMenuItem id="kundenverwaltungUploadItem" rendered="#{request.isUserInRole('kunde')}">
+					<a jsf:id="kundenverwaltungUpload" jsf:outcome="/rf/kundenverwaltung/upload?cid=#{javax.enterprise.context.conversation.id}">
+						#{msg['nav.kundenverwaltung.upload']}
+					</a>
+				</r:panelMenuItem>
+				<!--
+				<r:panelMenuItem id="kundenverwaltungViewByEmailInit" label="Init" binding="{kundeMenu.menuItemEmail}">
+				</r:panelMenuItem>
+				-->
+			</r:panelMenuGroup>
+		</r:panelMenu>
+	</form>
+</ui:composition>

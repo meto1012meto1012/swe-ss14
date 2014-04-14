@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<!--
+ * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              version="2.2">
+ <application>
+  <locale-config>
+   <default-locale>en</default-locale>
+   <supported-locale>de</supported-locale>
+  </locale-config>
+  
+  <message-bundle>ApplicationMessages</message-bundle>
+
+  <resource-bundle>
+   <base-name>web.Messages</base-name>
+   <var>msg</var>
+  </resource-bundle>
+  
+  <resource-bundle>
+   <base-name>web.kundenverwaltung.Messages</base-name>
+   <var>msgKv</var>
+  </resource-bundle>
+  
+  <resource-bundle>
+   <base-name>web.bestellverwaltung.Messages</base-name>
+   <var>msgBv</var>
+  </resource-bundle>
+ 
+  <resource-bundle>
+   <base-name>web.artikelverwaltung.Messages</base-name>
+   <var>msgAv</var>
+  </resource-bundle>
+  
+  <resource-bundle>
+   <base-name>web.auth.Messages</base-name>
+   <var>msgAuth</var>
+  </resource-bundle>
+ </application>
+ 
+ <!-- Vermeidung von Cross-side request forgery (CSRF, "See-surf") -->
+ <faces-config-extension>
+    <protected-views>
+       <url-pattern>/rf/kundenverwaltung/desktop/viewKunde.xhtml</url-pattern>
+       <url-pattern>/rf/kundenverwaltung/listKunden.xhtml</url-pattern>
+       <url-pattern>/rf/kundenverwaltung/registrierePrivatkunde.xhtml</url-pattern>
+       <url-pattern>/rf/kundenverwaltung/updateFirmenkunde.xhtml</url-pattern>
+       <url-pattern>/rf/kundenverwaltung/updatePrivatkunde.xhtml</url-pattern>
+       <url-pattern>/rf/bestellverwaltung/confirmBestellung.xhtml</url-pattern>
+    </protected-views>
+ </faces-config-extension>
+
+</faces-config>
