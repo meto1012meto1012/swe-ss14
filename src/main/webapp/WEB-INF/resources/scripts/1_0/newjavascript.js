@@ -16,6 +16,6 @@
  */
 app = angular.module("app", []);
 
-Kunde.controller('findKunde', function($scope, CardDeckService) {
-      $scope.carddecks = CardDeckService.findKundeById();
-    });
+function findKunde($scope) {
+  $scope.name = 'AngularJS';
+}
