@@ -15,26 +15,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<html>
-	<head>
-		<title>TODO supply a title</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	</head>
-	<body>
-		<div id="content">
-			<h2>Übersicht Lernkarteien</h2>
-			<div class="row-fluid">
-			 <div ng-repeat="carddeck in carddecks" class="span4">
-			  <div class="thumbnail">
-			   <a href="#karten/lernkartei/{{carddeck.id}}" title="Lernkartei #{{carddeck.id}} auswählen">
-				<img ng-src="img/{{carddeck.coverImage}}">
-			   </a>
-			   <h3>{{carddeck.title}}</h3>
-			   <p>{{carddeck.numberOfCards}} Karten</p>
-			  </div>
-			 </div>
-			</div>
-	   </div>
-</body>
+
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+    <script src="newjavascript.js"></script>
+  </head>
+  <body ng-controller="MainController">
+    <label>Bitte gib Deinen Namen ein:</label>
+    <input type="text" ng-model="name">
+    <hr>
+    <strong>Hallo {{name}}!</strong>
+  </body>
 </html>
+
