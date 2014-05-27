@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Copyright (C) 2013 Juergen Zimmermann, Hochschule Karlsruhe
  *
@@ -16,18 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <!-- https://github.com/jboss/metadata/blob/master/web/src/main/resources/schema/jboss-web_8_0.xsd -->
 <!-- https://github.com/jboss/metadata/blob/master/web/src/main/resources/schema/jboss-web_7_1.xsd -->
 <!-- https://github.com/jboss/metadata/blob/master/common/src/main/resources/schema/jboss-common_6_0.xsd -->
-
-<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		   xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_8_0.xsd"
-		   version="8.0" > 
-	<context-root>shop</context-root>
-	<security-domain>shop</security-domain>
-	<!--
+<jboss-web version="8.0" xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_8_0.xsd">
+  <context-root>/shop</context-root>
+  <security-domain>shop</security-domain>
+  <!--
 	<disable-audit>false</disable-audit>
 	-->
 </jboss-web>
