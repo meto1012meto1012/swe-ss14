@@ -1,0 +1,59 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Zimmermann\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Zimmermann\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'bower' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 verbose node symlink C:\Zimmermann\nodejs\\node.exe
+5 verbose cache add [ 'bower', null ]
+6 verbose cache add name=undefined spec="bower" args=["bower",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'bower',
+7 verbose parsed url   path: 'bower',
+7 verbose parsed url   href: 'bower' }
+8 silly lockFile 206e3ce5-bower bower
+9 verbose lock bower C:\Users\Patrick\AppData\Roaming\npm-cache\206e3ce5-bower.lock
+10 silly lockFile 206e3ce5-bower bower
+11 silly lockFile 206e3ce5-bower bower
+12 verbose addNamed [ 'bower', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile 1240aab1-bower bower@
+15 verbose lock bower@ C:\Users\Patrick\AppData\Roaming\npm-cache\1240aab1-bower.lock
+16 silly addNameRange { name: 'bower', range: '*', hasData: false }
+17 verbose url raw bower
+18 verbose url resolving [ 'https://registry.npmjs.org/', './bower' ]
+19 verbose url resolved https://registry.npmjs.org/bower
+20 info trying registry request attempt 1 at 19:37:35
+21 http GET https://registry.npmjs.org/bower
+22 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=connect ETIMEDOUT
+23 info trying registry request attempt 2 at 19:38:06
+24 http GET https://registry.npmjs.org/bower
+25 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=connect ETIMEDOUT
+26 info trying registry request attempt 3 at 19:39:27
+27 http GET https://registry.npmjs.org/bower
+28 silly lockFile 1240aab1-bower bower@
+29 silly lockFile 1240aab1-bower bower@
+30 error network tunneling socket could not be established, cause=connect ETIMEDOUT
+30 error network This is most likely not a problem with npm itself
+30 error network and is related to network connectivity.
+30 error network In most cases you are behind a proxy or have bad network settings.
+30 error network
+30 error network If you are behind a proxy, please make sure that the
+30 error network 'proxy' config is set properly.  See: 'npm help config'
+31 error System Windows_NT 6.1.7601
+32 error command "C:\\Zimmermann\\nodejs\\\\node.exe" "C:\\Zimmermann\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "bower"
+33 error cwd C:\Users\Patrick\NetBeansProjects\swe-ss14
+34 error node -v v0.10.26
+35 error npm -v 1.4.3
+36 error code ECONNRESET
+37 verbose exit [ 1, true ]
