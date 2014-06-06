@@ -80,7 +80,7 @@ public class Artikel extends AbstractVersionedAuditable {
 	public static final String PARAM_BEZEICHNUNG = "bezeichnung";
 
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
 	@Basic(optional = false)
 	@FormParam(value = "id")
 	private Long id;

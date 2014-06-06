@@ -1,15 +1,7 @@
 <div class="container">
-    <h1>Artikel anlegen</h1>
+    <h1>Artikel Updaten</h1>
 
     <form>
-		 </div>
-        <div class="control-group">
-            <label class="control-label" for="inputFirstName">ID:</label>
-            <div class="controls">
-                <input type="text" id="inputFirstName" ng-model="artikel.id"/>
-            </div>
-        </div>
-        
         <div class="control-group">
             <label class="control-label" for="inputFirstName">Bezeichnung:</label>
             <div class="controls">
@@ -24,10 +16,11 @@
         </div>
         <div class="control-group">
             <div class="controls">
-               
+              <!-- user-detail.html: -->
+                <a ng-click="cancel()" class="btn btn-small">cancel</a>
+                <a ng-click="updateArtikel()" class="btn btn-small btn-primary">update Artikel</a>
 
-              <!-- user-creation.html: -->
-                <a ng-click="createNewArtikel()" class="btn btn-small btn-primary">create new Artikel</a>
+         
             </div>
         </div>
     </form>

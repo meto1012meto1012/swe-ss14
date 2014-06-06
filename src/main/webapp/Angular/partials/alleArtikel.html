@@ -5,6 +5,8 @@
 <div ng-controller="alleArtikelController">
 	{{artikel.bezeichnung}}<br>
 	{{artikel.id}}<br>
-	{{artikel.version}}<<br>
+	{{artikel.version}}<br>
+	
+	<a ng-click="editArtikel(artikel.id)" class="btn btn-small btn-primary">Bearbeiten</a>
 </div>
 
