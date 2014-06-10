@@ -30,11 +30,12 @@ Shop.controller('artikelAendernController', ['$scope', '$routeParams', 'ArtikelF
 	  $scope.updateArtikel = function () {
 			
             var artikel = ArtikelFactory.get({id: $routeParams.id});
+			var artikelUpdated = angular.copy(artikel);
             $id = artikel.id;
-			artikel.bezeichnung = $scope.bezeichnung; 
-			artikel.preis = $scope.preis; 
+			artikelUpdated.bezeichnung = $scope.bezeichnung; 
+			artikelUpdated.preis = $scope.preis; 
 			
-			ArtikelFactory.update({id:$id}, artikel);
+			ArtikelFactory.update(null, artikelUpdated);
 			$location.path('/artikelA');
         };
       
