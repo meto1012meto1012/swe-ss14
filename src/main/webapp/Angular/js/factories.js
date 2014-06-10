@@ -10,21 +10,30 @@ Shop.factory('ArtikelService', function($resource){
 	return ArtikelService;
 });
 
-Shop.factory('ArtikelFactory', function ($resource) {
-    return $resource('/shop/rest/artikel/', {}, {
-        query: { method: 'GET', isArray: false },
+Shop.factory('ArtikelFactory', ['$resource', function ($resource) {
+    return $resource('/shop/rest/artikel/:id', {}, {
+        show: { method: 'GET' },
+        'update': { method: 'PUT'}
+    });
+}]);
+
+Shop.factory('KundenService', function($resource){
+	var KundenService = $resource('/shop/rest/kunden/:kundenid', {}, {});
+	
+	KundenService.findAllKunden = function(id) {
+			return KundenService.get({kundenid : id});
+
+	};
+	
+	
+	
+	return KundenService;
+});
+
+Shop.factory('ArtikelFac', function ($resource) {
+    return $resource('/shop/rest/artikel', {}, {
+        query: { method: 'GET', isArray: true },
         create: { method: 'POST' }
 	 });
     });
-
-
-Shop.factory('ArtikelFactory', function ($resource) {
-    return $resource('/shop/rest/artikel/:id', {}, {
-        show: { method: 'GET' },
-        'update': { method: 'PUT' }
-    });
-});
-
-	
-
 

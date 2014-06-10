@@ -1,12 +1,28 @@
 <!doctype html>
-
+<html>
+	<head>
+		<title>Alle Artikel</title>
+</head>
+<body>
 <h3>Alle Artikel</h3>
-
+<h4>Bitte Artikel ID eingeben:</h4>
 <div ng-controller="alleArtikelController">
-	{{artikel.bezeichnung}}<br>
-	{{artikel.id}}<br>
-	{{artikel.version}}<br>
-	
-	<a ng-click="editArtikel(artikel.id)" class="btn btn-small btn-primary">Bearbeiten</a>
-</div>
+	<input type="text" ng-model="aid" placeholder="Search"/>
+	<button ng-click="search(aid)" class="btn btn-small btn-primary">Suchen</button><br><br><br>
 
+<table class ="table">
+	<tr><th>ID</th>
+		<th>Bezeichnung</th>
+		<th>Preis</th>
+	</tr>
+	<tr>
+	<td>{{artikel.id}}</td>
+	<td>{{artikel.bezeichnung}}</td>
+	<td>{{artikel.preis}}</td>
+	</tr>
+</table>
+
+<a ng-click="editArtikel(aid)" class="btn btn-small btn-primary">Bearbeiten</a>	
+</div>
+</body>
+</html>

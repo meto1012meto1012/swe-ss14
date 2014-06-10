@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Alle Kunden</title>
+</head>
+<body>
+<h3>Alle Kunden</h3>
+<h4>Bitte Kunden ID eingeben:</h4>
+<div ng-controller="alleKundenController">
+	<input type="text" ng-model="kid" placeholder="Search"/>
+	<button ng-click="search(kid)" class="btn btn-small btn-primary">Suchen</button><br><br><br>
+
+<table class ="table">
+	<tr><th>ID</th>
+		<th>Name</th>
+		<th>Vorname</th>
+		<th>E-Mail</th>
+		<th>Wohnort</th>
+	</tr>
+	<tr>
+	<td>{{kunden.id}}</td>
+	<td>{{kunden.nachname}}</td>
+	<td>{{kunden.vorname}}</td>
+	<td>{{kunden.email}}</td>
+	<td>{{kunden.adresse.ort}}</td>
+	</tr>
+</table>
+
+	
+</div>
+</body>
+</html>

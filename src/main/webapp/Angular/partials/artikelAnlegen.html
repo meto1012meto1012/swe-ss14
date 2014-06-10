@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Artikel anlegen</h1>
+
+    <form>
+		
+		  <div class="control-group">
+            <label class="control-label">Bezeichnung:</label>
+            <div class="controls">
+                <input type="text" ng-model="artikel.bezeichnung"/>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Preis:</label>
+            <div class="controls">
+                <input type="text" ng-model="artikel.preis"/>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+         
+                <a ng-click="createArtikel()" class="btn btn-small btn-primary">Artikel anlegen</a>
+
+         
+            </div>
+         </div>
+    </form>
+</div>

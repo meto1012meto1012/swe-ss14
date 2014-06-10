@@ -1,57 +1,70 @@
-var Shop = angular.module('shop', ['ngResource'])
+var Shop = angular.module('shop', ['ngResource']);
 
-		.config(function ($routeProvider) {
+		Shop.config(function ($routeProvider) {
         $routeProvider.
             when('/artikelA', {templateUrl: 'partials/alleArtikel.html', controller: 'alleArtikelController'}).
-            when('/artikelS', {templateUrl: 'partials/artikelSuchen.html', controller: 'artikelAnlegenController'}).
-            when('/artikelU', {templateUrl: 'partials/Artikelaendern.html', controller: 'artikelAendernController'}).
-			when('/home', {templateUrl: 'partials/home.html'});
+            when('/artikelS', {templateUrl: 'partials/artikelAnlegen.html', controller: 'artikelAnlegenController'}).
+            when('/artikelU', {templateUrl: 'partials/artikelAendern.html', controller: 'artikelAendernController'}).
+			when('/kunde', {templateUrl: 'partials/alleKunden.html', controller: 'alleKundenController'}).
+			when('/', {templateUrl: 'partials/home.html'});
     });
 
 
 Shop.controller('alleArtikelController', ['$scope', 'ArtikelService', '$location',
 	function($scope, ArtikelService, $location){
 	
-	
-	$scope.artikel = ArtikelService.findAllArtikel(301);
+		$scope.search = function(aid){
+			$scope.artikel = ArtikelService.findAllArtikel(aid);
+		};
 
-	$scope.editArtikel = function (artikelid) {
-            $location.path('/artikelU/').search('id', artikelid);
+	$scope.editArtikel = function (aid) {
+            $location.path('/artikelU/').search('id', aid);
         };
 }]);
 
-Shop.controller('artikelAnlegenController', ['$scope', 'ArtikelFactory', '$location',
-    function ($scope, ArtikelFactory, $location) {
 
-        // callback for ng-click 'createNewUser':
-        $scope.createNewArtikel = function () {
-            ArtikelFactory.create($scope.artikel);
-            $location.path('/artikelU');
-        };
-    }]);
+Shop.controller('artikelAendernController', ['$scope', '$routeParams', 'ArtikelFactory', '$location',
+    function ($scope, $routeParams, ArtikelFactory, $location) {
 
-Shop.controller('artikelAendernController', ['$scope', '$routeParams', 'ArtikelFactory', 'ArtikelService', '$location',
-    function ($scope, $routeParams, ArtikelFactory, ArtikelService, $location) {
-
-        // callback for ng-click 'updateUser':
-        $scope.updateArtikel = function () {
-			alert('update7');
+		
+	  $scope.updateArtikel = function () {
 			
-            var artikel = ArtikelService.findAllArtikel($routeParams.id);
+            var artikel = ArtikelFactory.get({id: $routeParams.id});
             $id = artikel.id;
-			artikel.bezeichnung = "ksdjf";
-			artikel.preis = "2";
+			artikel.bezeichnung = $scope.bezeichnung; 
+			artikel.preis = $scope.preis; 
 			
 			ArtikelFactory.update({id:$id}, artikel);
-			$location.path('/home');
+			$location.path('/artikelA');
         };
-
-        // callback for ng-click 'cancel':
+      
         $scope.cancel = function () {
             $location.path('/home');
         };
 
-		alert('test3');
-		alert('param: ' + $routeParams.id);
-        //$scope.artikel = ArtikelFactory.show({id: $routeParams.id});
+	
+        $scope.artikel = ArtikelFactory.show({id: $routeParams.id});
+    }]);
+
+
+Shop.controller('alleKundenController', ['$scope', 'KundenService', 
+	function($scope, KundenService){
+	
+
+	$scope.search = function(kid){
+	$scope.kunden = KundenService.findAllKunden(kid);
+	};
+
+}]);
+
+Shop.controller('artikelAnlegenController', ['$scope', 'ArtikelFac', '$location',
+    function ($scope, ArtikelFac, $location) {
+	
+        $scope.createArtikel = function () {
+            ArtikelFac.create($scope.artikel);
+			$location.path('/artikelA');
+			alert(this.id);
+        };
+		            
+		
     }]);
