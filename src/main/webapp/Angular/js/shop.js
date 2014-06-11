@@ -29,14 +29,28 @@ Shop.controller('artikelAendernController', ['$scope', '$routeParams', 'ArtikelF
 		
 	  $scope.updateArtikel = function () {
 			
-            var artikel = ArtikelFactory.get({id: $routeParams.id});
-			var artikelUpdated = angular.copy(artikel);
-            $id = artikel.id;
-			artikelUpdated.bezeichnung = $scope.bezeichnung; 
-			artikelUpdated.preis = $scope.preis; 
+            var artikel = ArtikelFactory.get({id: $routeParams.id}, function(a, getResponseHeaders) {
+				a.bezeichnung =  $scope.artikel.bezeichnung;
+				a.preis = $scope.artikel.preis;
+				ArtikelFactory.update(null, a);
+				$location.path('/artikelA');
+			}, function(getResponseHeaders) {
+				alert('Fehler beim abrufen des Artikels');
+			});
+
 			
-			ArtikelFactory.update(null, artikelUpdated);
-			$location.path('/artikelA');
+            
+			//artikelUpdated.bezeichnung = $scope.artikel.bezeichnung;
+			//artikelUpdated.preis = $scope.artikel.preis;
+			//artikelUpdated.bezeichnung = "welt1";
+			/*var test = {id: artikel.id,
+						bezeichnung: "test",
+						preis:3,
+						version:artikel.version,
+						ausgesondert:artikel.ausgesondert}; */
+			
+			//ArtikelFactory.update(null, test);
+			
         };
       
         $scope.cancel = function () {
@@ -62,10 +76,12 @@ Shop.controller('artikelAnlegenController', ['$scope', 'ArtikelFac', '$location'
     function ($scope, ArtikelFac, $location) {
 	
         $scope.createArtikel = function () {
-            ArtikelFac.create($scope.artikel);
+            ArtikelFac.create($scope.artikel, function(a, getResponseHeaders){
 			$location.path('/artikelA');
-			alert(this.id);
-        };
+			}, function(getResponseHeaders) {
+				alert('Fehler beim abrufen des Artikels');
+			
+		});
 		            
-		
+		};	
     }]);
